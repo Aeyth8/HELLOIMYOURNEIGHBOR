@@ -84,6 +84,7 @@ extern void CopyPastable()
 	else if (strcmp(FileName, "HelloNeighbour-Win64-Shipping.exe") != 0)
 	{
 		MessageBoxA(0, "This tool was only designed to work on Hello Neighbor Pre-Alpha and Hello Neighbor Alpha 1.\nThis tool will be ejected and do nothing.", FileName, MB_OK);
+		return;
 	}
 
 	if (Hooks::Init()) Hooks::CreateAndEnableHook(OFF::GetMousePosition, Hook::GetMousePosition);
