@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\hde\hde32.c">
+      <Filter>MinHook\src\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\hde\hde64.c">
+      <Filter>MinHook\src\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\buffer.c">
+      <Filter>MinHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\hook.c">
+      <Filter>MinHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\trampoline.c">
+      <Filter>MinHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Aeyth8\Proxy8\Proxy.cpp">
+      <Filter>Aeyth8\Proxy</Filter>
+    </ClCompile>
+    <ClCompile Include="Aeyth8\Proxy8\ProxyTypes.cpp">
+      <Filter>Aeyth8\Proxy</Filter>
+    </ClCompile>
+    <ClCompile Include="Aeyth8\Hooks\Hooks.cpp">
+      <Filter>Aeyth8\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="Aeyth8\Tools\UniversalConsoleCreator.cpp">
+      <Filter>Aeyth8\Tools</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MinHook\MinHook.h">
+      <Filter>MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\hde\hde32.h">
+      <Filter>MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\hde\hde64.h">
+      <Filter>MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\hde\pstdint.h">
+      <Filter>MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\hde\table32.h">
+      <Filter>MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\hde\table64.h">
+      <Filter>MinHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\buffer.h">
+      <Filter>MinHook\src</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\trampoline.h">
+      <Filter>MinHook\src</Filter>
+    </ClInclude>
+    <ClInclude Include="Aeyth8\Proxy8\Proxy.h">
+      <Filter>Aeyth8\Proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="Aeyth8\Proxy8\ProxyTypes.h">
+      <Filter>Aeyth8\Proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="Aeyth8\Hooks\Hooks.hpp">
+      <Filter>Aeyth8\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="Aeyth8\OffsetBase.h">
+      <Filter>Aeyth8</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Aeyth8">
+      <UniqueIdentifier>{22d66732-5242-4541-a899-ff4b3121ebe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{c100630e-ec84-43ac-ad25-07d92d79424e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aeyth8\Proxy">
+      <UniqueIdentifier>{ba2fe6ac-b7ce-465b-8f5d-2671412a78b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aeyth8\Tools">
+      <UniqueIdentifier>{5eb59202-c13c-4d6e-8855-0162efb93aaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinHook">
+      <UniqueIdentifier>{10eb5082-fad6-4500-99fc-d08f8cf8bb5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinHook\src">
+      <UniqueIdentifier>{fe83a940-5dd9-45c9-bf86-a0f3ce7c7510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinHook\src\hde">
+      <UniqueIdentifier>{e721447c-0978-47a4-b0b8-725784673a85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aeyth8\Hooks">
+      <UniqueIdentifier>{195e1066-e475-4943-870c-1a646e329694}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
