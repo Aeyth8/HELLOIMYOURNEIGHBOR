@@ -6,11 +6,21 @@ using namespace A8CL;
 
 namespace OFF
 {
-	OFFSET StaticConstructObject("StaticConstructObject_Internal", 0x23BCD0);
-	OFFSET GetMousePosition("UGameViewportClient::GetMousePosition", 0x5B3A10);
-	OFFSET UConsoleStaticClass("UConsole::GetPrivateStaticClass", 0x3AC8C0);
+	OFFSET StaticConstructObject("StaticConstructObject_Internal", 0x0);
+	OFFSET GetMousePosition("UGameViewportClient::GetMousePosition", 0x0);
+	OFFSET UConsoleStaticClass("UConsole::GetPrivateStaticClass", 0x0);
 
 	constexpr unsigned VIEWPORT_CONSOLE = 0x38;
+	constexpr ull	   SCO_HEADER		= 0x565355182444894C;
+
+	constexpr ull SCO_Offsets[]{0x23BCD0, 0x2AB010, 0x220E90};
+	constexpr ull GMP_Offsets[]{0x5B3A10, 0x4562C0, 0x68FC30};
+	constexpr ull CSC_Offsets[]{0x3AC8C0, 0x4F3E40, 0x341190};
+
+	#define ARRAY_SIZE(Array) sizeof(Array) / sizeof(Array[0])
+	static_assert(ARRAY_SIZE(SCO_Offsets) == ARRAY_SIZE(GMP_Offsets) && ARRAY_SIZE(SCO_Offsets) == ARRAY_SIZE(CSC_Offsets));
+	constexpr char OffsetArraySize = ARRAY_SIZE(SCO_Offsets);
+
 }
 namespace Struct
 {
@@ -52,8 +62,6 @@ namespace Hook
 
 void WaitingToMakeConsoleThread()
 {
-	using ull = unsigned long long;
-
 	while (!Var::GameViewportClient) Sleep(100);
 	
 	//Var::ConsoleStaticClass = OFF::UConsoleStaticClass.VerifyFC<Decl::T_GetPrivateStaticClass>()(L"/Script/Engine");
@@ -69,23 +77,36 @@ void WaitingToMakeConsoleThread()
 
 extern void CopyPastable()
 {
-	const char* FileName{nullptr};
-	char FileNameBuffer[260]{0};
-	GetModuleFileNameA(GetModuleHandleA(0), FileNameBuffer, 260);
-	FileName = strrchr(FileNameBuffer, '\\') + 1;
+	const ull GBA = OFFSET::GetImageBase();
 	
-	
-	if (strcmp(FileName, "HelloNeighborReborn-Win64-Shipping.exe") == 0)
+	bool bCompatible{false};
+	for (char i{0}; i < OFF::OffsetArraySize; ++i)
 	{
-		*((ull*)&OFF::StaticConstructObject.Offset) = 0x2AB010;
-		*((ull*)&OFF::GetMousePosition.Offset) = 0x4562C0;
-		*((ull*)&OFF::UConsoleStaticClass.Offset) = 0x4F3E40;
+		ull VersionCheck = *(ull*)(GBA + OFF::SCO_Offsets[i]);
+		if (VersionCheck == OFF::SCO_HEADER)
+		{
+			OFF::StaticConstructObject.Offset = OFF::SCO_Offsets[i];
+			OFF::GetMousePosition.Offset = OFF::GMP_Offsets[i];
+			OFF::UConsoleStaticClass.Offset = OFF::CSC_Offsets[i];
+
+			bCompatible = true;
+			break;
+		}
 	}
-	else if (strcmp(FileName, "HelloNeighbour-Win64-Shipping.exe") != 0)
+
+	if (!bCompatible)
 	{
-		MessageBoxA(0, "This tool was only designed to work on Hello Neighbor Pre-Alpha and Hello Neighbor Alpha 1.\nThis tool will be ejected and do nothing.", FileName, MB_OK);
+		MessageBoxA(0, "This tool was only designed to work on Hello Neighbor Pre-Alpha and Hello Neighbor Alpha 1.\nThis tool will be ejected and do nothing.", "Incompatible Game!", MB_OK);
 		return;
 	}
+	
+	/*
+		565355182444894C
+
+		constexpr byte Frick[8]{0x4C, 0x89, 0x44, 0x24, 0x18, 0x55, 0x53, 0x56};
+		LogA("bytes to qword", HexToString(*(qword*)Frick));
+	
+	*/
 
 	if (Hooks::Init()) Hooks::CreateAndEnableHook(OFF::GetMousePosition, Hook::GetMousePosition);
 

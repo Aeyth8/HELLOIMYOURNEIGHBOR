@@ -36,7 +36,7 @@ class OFFSET
 public:
 
 	const char* OffsetName;
-	const ull Offset;
+	ull Offset;
 	void* FunctionCall{nullptr}; // Either a pointer to the function after hooking (the trampoline) or a pointer to the function.
 
 public:
