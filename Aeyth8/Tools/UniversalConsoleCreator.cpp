@@ -1,4 +1,5 @@
 #include "../Hooks/Hooks.hpp"
+#include "BytePatcher.h"
 
 using namespace A8CL;
 
@@ -16,6 +17,7 @@ namespace OFF
 	constexpr ull SCO_Offsets[]{0x23BCD0, 0x2AB010, 0x220E90};
 	constexpr ull GMP_Offsets[]{0x5B3A10, 0x4562C0, 0x68FC30};
 	constexpr ull CSC_Offsets[]{0x3AC8C0, 0x4F3E40, 0x341190};
+	constexpr ull ADV_Offsets[]{0xF13960, 0x1050D30, 0};				// AllowDebugViewmodes
 
 	#define ARRAY_SIZE(Array) sizeof(Array) / sizeof(Array[0])
 	static_assert(ARRAY_SIZE(SCO_Offsets) == ARRAY_SIZE(GMP_Offsets) && ARRAY_SIZE(SCO_Offsets) == ARRAY_SIZE(CSC_Offsets));
@@ -89,6 +91,8 @@ extern void CopyPastable()
 			OFF::GetMousePosition.Offset = OFF::GMP_Offsets[i];
 			OFF::UConsoleStaticClass.Offset = OFF::CSC_Offsets[i];
 
+			BytePatcher::ReplaceBytes(GBA + OFF::ADV_Offsets[i], {0xB0, 0x01, 0xC3, 0x90, 0x90, 0x90});
+
 			bCompatible = true;
 			break;
 		}
@@ -107,7 +111,7 @@ extern void CopyPastable()
 		LogA("bytes to qword", HexToString(*(qword*)Frick));
 	
 	*/
-
+	
 	if (Hooks::Init()) Hooks::CreateAndEnableHook(OFF::GetMousePosition, Hook::GetMousePosition);
 
 	void* Thread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)WaitingToMakeConsoleThread, 0, 0, 0);
